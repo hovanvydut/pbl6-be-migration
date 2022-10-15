@@ -1,5 +1,10 @@
 # MIGRATION FLOW
 
+## HISTORY
+1. UpdateMediaTable/003_.sql
+
+## GUIDE
+
 A and B are two developers in the same project.
 They need a mechanism to synchronizing the migration.
 
