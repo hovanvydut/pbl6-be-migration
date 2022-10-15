@@ -2,6 +2,7 @@ insert into ExampleDb.property_group (display_name, created_at)
 values 
 ('Các địa điểm gần đó', NOW()),
 ('Các tiện ích khác', NOW());
+('Đối tượng cho thuê', NOW());
 
 insert into ExampleDb.property (display_name, property_group_id ,created_at)
 values
@@ -14,6 +15,7 @@ values
 ('Bệnh viện', 1, NOW()),
 ('Công viên, bến xe', 1, NOW()),
 ('Sửa xe', 1, NOW()),
+
 ('Cho nam nữ ở chung', 2, NOW()),
 ('Cho nuôi thú cưng', 2, NOW()),
 ('Có sẵn nội thức', 2, NOW()),
@@ -30,4 +32,12 @@ values
 ('Có nước nóng lạnh', 2, NOW()),
 ('Có khoá cổng riêng', 2, NOW()),
 ('Không quy định giờ giấc', 2, NOW()),
-('Cho thuê ngắn hạn', 2, NOW());
+('Cho thuê ngắn hạn', 2, NOW()),
+
+('Nam', 3, NOW()),
+('Nữ', 3, NOW()),
+('Giới tính khác', 3, NOW()),
+('Sinh viên', 3, NOW()),
+('Người đi làm', 3, NOW()),
+('Gia đình', 3, NOW()),
+('Không quy định', 3, NOW());
