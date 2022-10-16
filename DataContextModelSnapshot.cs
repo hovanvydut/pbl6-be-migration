@@ -134,6 +134,44 @@ namespace monolithic.Migrations
                     b.ToTable("category");
                 });
 
+            modelBuilder.Entity("Monolithic.Models.Entities.MediaEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("longtext")
+                        .HasColumnName("content_type");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("EntityId")
+                        .HasColumnType("int")
+                        .HasColumnName("entity_id");
+
+                    b.Property<int>("EntityType")
+                        .HasColumnType("int")
+                        .HasColumnName("entity_type");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("longtext")
+                        .HasColumnName("url");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntityId");
+
+                    b.ToTable("media");
+                });
+
             modelBuilder.Entity("Monolithic.Models.Entities.PermissionEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -180,7 +218,8 @@ namespace monolithic.Migrations
                         .HasColumnName("address");
 
                     b.Property<int>("AddressWardId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("address_ward_id");
 
                     b.Property<float>("Area")
                         .HasColumnType("float")
@@ -230,10 +269,6 @@ namespace monolithic.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
-                    b.Property<int>("UserAccountId")
-                        .HasColumnType("int")
-                        .HasColumnName("user_id");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressWardId");
@@ -242,8 +277,6 @@ namespace monolithic.Migrations
 
                     b.HasIndex("Slug")
                         .IsUnique();
-
-                    b.HasIndex("UserAccountId");
 
                     b.ToTable("post");
                 });
@@ -505,17 +538,9 @@ namespace monolithic.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Monolithic.Models.Entities.UserAccountEntity", "UserAccount")
-                        .WithMany()
-                        .HasForeignKey("UserAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("AddressWard");
 
                     b.Navigation("Category");
-
-                    b.Navigation("UserAccount");
                 });
 
             modelBuilder.Entity("Monolithic.Models.Entities.PostPropertyEntity", b =>

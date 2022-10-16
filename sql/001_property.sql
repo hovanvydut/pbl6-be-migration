@@ -1,7 +1,7 @@
 insert into ExampleDb.property_group (display_name, created_at)
 values 
 ('Các địa điểm gần đó', NOW()),
-('Các tiện ích khác', NOW());
+('Các tiện ích khác', NOW())
 ('Đối tượng cho thuê', NOW());
 
 insert into ExampleDb.property (display_name, property_group_id ,created_at)

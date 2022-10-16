@@ -50,6 +50,27 @@ namespace monolithic.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "media",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    content_type = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    url = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    entity_type = table.Column<int>(type: "int", nullable: false),
+                    entity_id = table.Column<int>(type: "int", nullable: false),
+                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_media", x => x.id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "property_group",
                 columns: table => new
                 {
@@ -82,25 +103,6 @@ namespace monolithic.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_role", x => x.id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "tenant_type",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    display_name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    slug = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tenant_type", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -248,10 +250,8 @@ namespace monolithic.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     limit_tenant = table.Column<int>(type: "int", nullable: false),
                     num_view = table.Column<int>(type: "int", nullable: false),
-                    AddressWardId = table.Column<int>(type: "int", nullable: false),
-                    TenantTypeId = table.Column<int>(type: "int", nullable: false),
+                    address_ward_id = table.Column<int>(type: "int", nullable: false),
                     category_id = table.Column<int>(type: "int", nullable: false),
-                    user_id = table.Column<int>(type: "int", nullable: false),
                     deleted_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
@@ -260,8 +260,8 @@ namespace monolithic.Migrations
                 {
                     table.PrimaryKey("PK_post", x => x.id);
                     table.ForeignKey(
-                        name: "FK_post_address_ward_AddressWardId",
-                        column: x => x.AddressWardId,
+                        name: "FK_post_address_ward_address_ward_id",
+                        column: x => x.address_ward_id,
                         principalTable: "address_ward",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -271,14 +271,40 @@ namespace monolithic.Migrations
                         principalTable: "category",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "user_profile",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    display_name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    phone_number = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    identity_number = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    current_credit = table.Column<double>(type: "double", nullable: false),
+                    address = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    address_ward_id = table.Column<int>(type: "int", nullable: false),
+                    user_id = table.Column<int>(type: "int", nullable: false),
+                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_user_profile", x => x.id);
                     table.ForeignKey(
-                        name: "FK_post_tenant_type_TenantTypeId",
-                        column: x => x.TenantTypeId,
-                        principalTable: "tenant_type",
+                        name: "FK_user_profile_address_ward_address_ward_id",
+                        column: x => x.address_ward_id,
+                        principalTable: "address_ward",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_post_user_account_user_id",
+                        name: "FK_user_profile_user_account_user_id",
                         column: x => x.user_id,
                         principalTable: "user_account",
                         principalColumn: "id",
@@ -332,14 +358,19 @@ namespace monolithic.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_media_entity_id",
+                table: "media",
+                column: "entity_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_permission_role_id",
                 table: "permission",
                 column: "role_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_post_AddressWardId",
+                name: "IX_post_address_ward_id",
                 table: "post",
-                column: "AddressWardId");
+                column: "address_ward_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_post_category_id",
@@ -351,16 +382,6 @@ namespace monolithic.Migrations
                 table: "post",
                 column: "slug",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_post_TenantTypeId",
-                table: "post",
-                column: "TenantTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_post_user_id",
-                table: "post",
-                column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_post_property_post_id_property_id",
@@ -382,15 +403,32 @@ namespace monolithic.Migrations
                 name: "IX_user_account_role_id",
                 table: "user_account",
                 column: "role_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_profile_address_ward_id",
+                table: "user_profile",
+                column: "address_ward_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_profile_user_id",
+                table: "user_profile",
+                column: "user_id",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "media");
+
+            migrationBuilder.DropTable(
                 name: "permission");
 
             migrationBuilder.DropTable(
                 name: "post_property");
+
+            migrationBuilder.DropTable(
+                name: "user_profile");
 
             migrationBuilder.DropTable(
                 name: "post");
@@ -399,25 +437,22 @@ namespace monolithic.Migrations
                 name: "property");
 
             migrationBuilder.DropTable(
+                name: "user_account");
+
+            migrationBuilder.DropTable(
                 name: "address_ward");
 
             migrationBuilder.DropTable(
                 name: "category");
 
             migrationBuilder.DropTable(
-                name: "tenant_type");
-
-            migrationBuilder.DropTable(
-                name: "user_account");
-
-            migrationBuilder.DropTable(
                 name: "property_group");
 
             migrationBuilder.DropTable(
-                name: "address_district");
+                name: "role");
 
             migrationBuilder.DropTable(
-                name: "role");
+                name: "address_district");
 
             migrationBuilder.DropTable(
                 name: "address_province");
