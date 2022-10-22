@@ -103,6 +103,37 @@ namespace monolithic.Migrations
                     b.ToTable("address_ward");
                 });
 
+            modelBuilder.Entity("Monolithic.Models.Entities.BankCodeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("code");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext")
+                        .HasColumnName("description");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("bank_code");
+                });
+
             modelBuilder.Entity("Monolithic.Models.Entities.CategoryEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -188,7 +219,7 @@ namespace monolithic.Migrations
                         .HasColumnName("description");
 
                     b.Property<string>("Key")
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("key");
 
                     b.Property<int>("RoleId")
@@ -200,6 +231,9 @@ namespace monolithic.Migrations
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Key")
+                        .IsUnique();
 
                     b.HasIndex("RoleId");
 
@@ -408,7 +442,7 @@ namespace monolithic.Migrations
                         .HasColumnName("created_at");
 
                     b.Property<string>("Email")
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("email");
 
                     b.Property<bool>("IsVerified")
@@ -433,6 +467,9 @@ namespace monolithic.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("RoleId");
 
                     b.ToTable("user_account");
@@ -453,6 +490,10 @@ namespace monolithic.Migrations
                         .HasColumnType("int")
                         .HasColumnName("address_ward_id");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("longtext")
+                        .HasColumnName("avatar");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
@@ -466,11 +507,11 @@ namespace monolithic.Migrations
                         .HasColumnName("display_name");
 
                     b.Property<string>("IdentityNumber")
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("identity_number");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("phone_number");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -486,6 +527,9 @@ namespace monolithic.Migrations
                     b.HasIndex("AddressWardId");
 
                     b.HasIndex("UserAccountId")
+                        .IsUnique();
+
+                    b.HasIndex("PhoneNumber", "IdentityNumber", "UserAccountId")
                         .IsUnique();
 
                     b.ToTable("user_profile");
