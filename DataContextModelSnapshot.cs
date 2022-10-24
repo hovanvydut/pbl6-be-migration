@@ -103,24 +103,24 @@ namespace monolithic.Migrations
                     b.ToTable("address_ward");
                 });
 
-            modelBuilder.Entity("Monolithic.Models.Entities.BankCodeEntity", b =>
+            modelBuilder.Entity("Monolithic.Models.Entities.BookmarkEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    b.Property<string>("Code")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("code");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext")
-                        .HasColumnName("description");
+                    b.Property<int>("GuestId")
+                        .HasColumnType("int")
+                        .HasColumnName("guest_id");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int")
+                        .HasColumnName("post_id");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)")
@@ -128,10 +128,11 @@ namespace monolithic.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Code")
-                        .IsUnique();
+                    b.HasIndex("GuestId");
 
-                    b.ToTable("bank_code");
+                    b.HasIndex("PostId");
+
+                    b.ToTable("bookmark");
                 });
 
             modelBuilder.Entity("Monolithic.Models.Entities.CategoryEntity", b =>
@@ -418,7 +419,7 @@ namespace monolithic.Migrations
                         .HasColumnName("description");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("name");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -426,6 +427,9 @@ namespace monolithic.Migrations
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("role");
                 });
@@ -555,6 +559,25 @@ namespace monolithic.Migrations
                         .IsRequired();
 
                     b.Navigation("AddressDistrict");
+                });
+
+            modelBuilder.Entity("Monolithic.Models.Entities.BookmarkEntity", b =>
+                {
+                    b.HasOne("Monolithic.Models.Entities.UserAccountEntity", "GuestAccount")
+                        .WithMany()
+                        .HasForeignKey("GuestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Monolithic.Models.Entities.PostEntity", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GuestAccount");
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("Monolithic.Models.Entities.PermissionEntity", b =>
