@@ -1,5 +1,5 @@
-insert into ExampleDb.role (name, description, created_at)
+insert into ExampleDb.role (id, name, description, created_at)
 values 
-('admin', 'quản lý', NOW()),
-('host', 'chủ trọ', NOW()),
-('guest', 'người tìm trọ', NOW());
+(1, 'admin', 'quản lý', NOW()),
+(2, 'host', 'chủ trọ', NOW()),
+(3, 'guest', 'người tìm trọ', NOW());
