@@ -4,6 +4,6 @@ INSERT INTO ExampleDb.user_account (id, email,password_hashed,password_salt,is_v
 	 (3, 'ht10082001@gmail.com',0xCC42DAEC7805EFD63530537938D4A60721F2C04130C40B2F18711FABA6439FEEA4F81253AFC48880201F5159816A55D8428A24E02B9D9C36ADB819EAECB9C579,0x7FFE9BB6AD6C44246CC0DF72FD799963D33DBDFF16E9ACB2482826935EE89E4356032FAF3D5685AF02D4187116F8711DC8AB3647BB90B8867C55DC555F35C00D027B01C164E3BA5F4E0149B6170FF114A6AB532449A83CF5CA6A125526563337554A38C2822889B5A48B684604EA9C2049D58DE8633149D088D358AF638D5A96,1,1,NOW());
 
 INSERT INTO ExampleDb.user_profile (id, display_name,phone_number,identity_number,current_credit,address,address_ward_id,user_id,created_at,avatar) VALUES
-	 (1, 'Phuong Tran','0336615425','0123123123',0.0,'Khong biet',6351,1,NOW(),'https://pbl6.s3.ap-southeast-1.amazonaws.com/312554885_1848921128805193_3095384672118521778_n.jpg'),
-	 (2, 'Nguyen Minh Dung','0702478885','12345678',0.0,'Ben xe trung tam',6351,2,NOW(),'https://pbl6.s3.ap-southeast-1.amazonaws.com/scaled_c35262b0-780c-4db6-8e7f-fe04ea1fc5a04957628494433943233.jpg'),
-	 (3, 'Truong Minh Phuoc','0382609982','197418191',0.0,'906/10 Ton Duc Thang',6351,3,NOW(),'https://pbl6.s3.ap-southeast-1.amazonaws.com/netjava.jpg');
+	 (1, 'Phuong Tran','0336615425','0123123123',1000000.0,'Khong biet',6351,1,NOW(),'https://pbl6.s3.ap-southeast-1.amazonaws.com/312554885_1848921128805193_3095384672118521778_n.jpg'),
+	 (2, 'Nguyen Minh Dung','0702478885','12345678',1000000.0,'Ben xe trung tam',6351,2,NOW(),'https://pbl6.s3.ap-southeast-1.amazonaws.com/scaled_c35262b0-780c-4db6-8e7f-fe04ea1fc5a04957628494433943233.jpg'),
+	 (3, 'Truong Minh Phuoc','0382609982','197418191',1000000.0,'906/10 Ton Duc Thang',6351,3,NOW(),'https://pbl6.s3.ap-southeast-1.amazonaws.com/netjava.jpg');
